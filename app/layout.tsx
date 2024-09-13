@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import TopBar from "./components/Topbar";
-import { ThemeProvider } from "@/components/ui/theme-provider";
+import { ThemeProviders } from "./theme-providers";
 import { Providers } from "./providers";
 
 const geistSans = localFont({
@@ -32,10 +32,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <ThemeProvider attribute="class" defaultTheme="system">
+          <ThemeProviders>
             <TopBar />
             {children}
-          </ThemeProvider>
+          </ThemeProviders>
         </Providers>
       </body>
     </html>
