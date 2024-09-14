@@ -6,7 +6,7 @@ export default function Home() {
     <div className="relative h-screen w-full bg-gradient-radial relative">
       <div className="absolute inset-0 -z-5 bg-graph-paper mask-graph-paper" />
       <div className="flex flex-col items-center justify-center h-full  inset-0 z-10 h-1/2 space-y-10 relative ">
-        <h1 className=" text-3xl md:text-5xl font-bold">
+        <h1 className=" text-3xl md:text-7xl font-bold">
           Start Connecting Now
         </h1>
         <h5 className="text-md  md:text-xl font-semibold text-center max-w-lg px-4">
