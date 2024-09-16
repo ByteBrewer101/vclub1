@@ -1,6 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
+import MessageBlock from "./MessageBlock";
+import MessageBlockReciever from "./MessageBlockReciever";
 
 export function ChatComp() {
   const [currentChat, setCurrentChat] = useState("");
@@ -54,20 +56,21 @@ export function ChatComp() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-white bg-opacity-5 backdrop-blur-xl p-4 rounded-xl w-full xl:w-1/3 md:w-4/5">
+    <div className="flex flex-col h-full bg-white bg-opacity-5 shadow-2xl  backdrop-blur-xl p-4 rounded-xl w-full xl:w-2/3 md:w-4/5">
       <div className="h-full flex-grow flex flex-col-reverse overflow-y-auto p-2 mb-2 space-y-2 no-scrollbar">
         <div ref={bottomRef} />
         {sample
           .slice()
           .reverse()
-          .map((chat, index) => (
-            <div key={index}>
-              <strong>{chat.senderName}:</strong> {chat.message}
-            </div>
-          ))}
+          .map((chat, index) => {
+            return chat.status ? (
+              <MessageBlock key={index} message={chat.message} />
+            ) : (
+              <MessageBlockReciever key={index} message={chat.message} />
+            );
+          })}
       </div>
 
-      {/* Input field and send button */}
       <div className="flex items-center space-x-2">
         <input
           type="text"

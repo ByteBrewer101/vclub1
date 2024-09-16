@@ -7,9 +7,10 @@ export default function AvatarComp() {
   const { data: session } = useSession();
 
   return (
-    <Avatar>
+    <Avatar className="w-8 h-8" >
       <AvatarImage
         src={session?.user?.image || "https://github.com/shadcn.png"}
+        
       />
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>
