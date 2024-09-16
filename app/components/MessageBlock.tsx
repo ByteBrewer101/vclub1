@@ -15,7 +15,7 @@ export  default function MessageBlock({message}:Mprops){
           <h1 className="font-bold ">Sender</h1>
         </div>
 
-        <div className="bg-blue-500 p-2 px-4 rounded-xl w-full  text-white">
+        <div className="bg-orange-500 p-2 px-4 rounded-xl w-full  text-white">
           {message}
         </div>
         <p>11:11</p>
