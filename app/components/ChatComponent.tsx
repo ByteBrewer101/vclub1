@@ -56,7 +56,7 @@ export function ChatComp() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-white bg-opacity-5 shadow-2xl  backdrop-blur-xl p-4 rounded-xl w-full xl:w-2/3 md:w-4/5">
+    <div className="flex flex-col h-full bg-black bg-opacity-10 shadow-2xl  backdrop-blur-sm p-4 rounded-xl w-full xl:w-2/3 md:w-4/5">
       <div className="h-full flex-grow flex flex-col-reverse overflow-y-auto p-2 mb-2 space-y-2 no-scrollbar">
         <div ref={bottomRef} />
         {sample
@@ -71,7 +71,7 @@ export function ChatComp() {
           })}
       </div>
 
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center w-full space-x-2">
         <input
           type="text"
           className="flex-grow p-2 bg-opacity-5 bg-white text-white outline-none rounded-xl"

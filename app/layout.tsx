@@ -4,6 +4,7 @@ import "./globals.css";
 import TopBar from "./components/Topbar";
 import { ThemeProviders } from "./theme-providers";
 import { Providers } from "./providers";
+import Footer1 from "./components/Footer1";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,6 +36,7 @@ export default function RootLayout({
           <ThemeProviders>
             <TopBar />
             {children}
+       
           </ThemeProviders>
         </Providers>
       </body>
