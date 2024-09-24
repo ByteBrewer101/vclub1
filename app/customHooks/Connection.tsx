@@ -1,35 +1,52 @@
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
-import { ConnStatus, socketAtom } from "../SocketLogic/atoms";
+import {  useSetRecoilState } from "recoil";
+import { chatArray, ConnStatus, socketAtom } from "../SocketLogic/atoms";
 
 export function useWebSocketServer(url: string) {
-  const socketAtomSetter = useSetRecoilState(socketAtom);
-  const connectionStatus = useSetRecoilState(ConnStatus);
+  const setSocket = useSetRecoilState(socketAtom);
+  const setConnectionStatus = useSetRecoilState(ConnStatus);
+  const  setCurrentChatArray = useSetRecoilState(chatArray);
 
   useEffect(() => {
     const socket = new WebSocket(url);
-    socketAtomSetter(socket);
+
+    // Store socket instance in Recoil state
+    setSocket(socket);
 
     socket.onopen = () => {
       console.log("WebSocket connected");
-      connectionStatus(true);
+      setConnectionStatus(true); // Set connection status to true when connected
     };
 
     socket.onmessage = (event) => {
-      console.log(event.data);
-      const recievedData = JSON.parse(event.data);
+      console.log("Message received:", event.data);
+      const receivedData = JSON.parse(event.data);
+      console.log(receivedData);
 
-      console.log(recievedData);
+      const chat = {
+        status: true,
+        message: receivedData.msg,
+        senderName: receivedData.sender,
+      };
+
+      // Update the chat array with the received data
+      setCurrentChatArray((chats) => [...chats, chat]);
+
+      console.log("Updated chat array:", receivedData);
     };
 
     socket.onclose = () => {
       console.log("WebSocket disconnected");
+      setConnectionStatus(false); // Set connection status to false when disconnected
     };
 
+    // Cleanup function to close the WebSocket connection on unmount
     return () => {
       socket.close();
-      console.log("websocket disconnected");
-      connectionStatus(false);
+      console.log("WebSocket connection closed");
+      setConnectionStatus(false);
     };
-  }, [socketAtomSetter, url, connectionStatus]);
+  }, [setSocket, url, setConnectionStatus, setCurrentChatArray]);
+
+  return null; // This hook does not return any JSX
 }

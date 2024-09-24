@@ -13,9 +13,9 @@ export function useJoinMessage() {
   return sendMessage;
 }
 
-export function useSendChat(msg: string) {
+export function useSendChat() {
   const socket = useRecoilValue(socketAtom);
-  const sendMessage = () => {
+  const sendMessage = (msg:string) => {
     const message = {
       type: "chat",
       content: msg,

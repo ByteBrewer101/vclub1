@@ -3,9 +3,14 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import MessageBlock from "./MessageBlock";
 import MessageBlockReciever from "./MessageBlockReciever";
+import {  useRecoilValue, useSetRecoilState } from "recoil";
+import { chatArray} from "../SocketLogic/atoms";
+import {  useJoinMessage, useSendChat } from "../customHooks/Functionsws";
 
 export function ChatComp() {
   const [currentChat, setCurrentChat] = useState("");
+  const sendMessageChat = useSendChat()
+  const joinNewRoom = useJoinMessage()
 
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
@@ -15,32 +20,13 @@ export function ChatComp() {
     }
   };
 
-  const [sample, setSample] = useState([
-    {
-      status: true,
-      message: "Hello, how are you?",
-      senderName: "Alice",
-    },
-    {
-      status: false,
-      message: "I'm doing well, thanks!",
-      senderName: "Bob",
-    },
-    {
-      status: true,
-      message: "Are you joining the meeting later?",
-      senderName: "Alice",
-    },
-    {
-      status: false,
-      message: "Yes, I'll be there at 3 PM.",
-      senderName: "Bob",
-    },
-  ]);
+  const chatarrayglobal = useSetRecoilState(chatArray)
+  const chatArrayValue = useRecoilValue(chatArray)
+
 
   useEffect(() => {
     scrollToBottom();
-  }, [sample]);
+  }, [chatArrayValue]);
 
   const sendHandler = () => {
     if (currentChat.trim()) {
@@ -49,9 +35,10 @@ export function ChatComp() {
         message: currentChat,
         senderName: "You",
       };
-
-      setSample((prev) => [...prev, chat]);
+      chatarrayglobal((prev) => [...prev, chat]);
       setCurrentChat("");
+      sendMessageChat(chat.message)
+      
     }
   };
 
@@ -59,7 +46,7 @@ export function ChatComp() {
     <div className="flex flex-col h-full bg-black bg-opacity-10 shadow-2xl  backdrop-blur-sm p-4 rounded-xl w-full xl:w-2/3 md:w-4/5">
       <div className="h-full flex-grow flex flex-col-reverse overflow-y-auto p-2 mb-2 space-y-2 no-scrollbar">
         <div ref={bottomRef} />
-        {sample
+        {chatArrayValue
           .slice()
           .reverse()
           .map((chat, index) => {
@@ -81,6 +68,7 @@ export function ChatComp() {
             if (e.key === "Enter") sendHandler();
           }}
         />
+        <Button onClick={()=>{joinNewRoom()}}>Join</Button>
         <Button onClick={sendHandler}>Send</Button>
       </div>
     </div>
