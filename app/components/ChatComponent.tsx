@@ -34,6 +34,7 @@ export function ChatComp() {
         status: false,
         message: currentChat,
         senderName: "You",
+      
       };
       chatarrayglobal((prev) => [...prev, chat]);
       setCurrentChat("");
@@ -51,7 +52,7 @@ export function ChatComp() {
           .reverse()
           .map((chat, index) => {
             return chat.status ? (
-              <MessageBlock key={index} message={chat.message} />
+              <MessageBlock key={index} sender={chat.senderName} message={chat.message} />
             ) : (
               <MessageBlockReciever key={index} message={chat.message} />
             );

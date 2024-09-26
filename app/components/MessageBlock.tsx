@@ -4,15 +4,16 @@ import AvatarComp from "./AvatarComp";
 
 
 interface Mprops {
-    message:string
+    message:string,
+    sender: string
 }
 
-export  default function MessageBlock({message}:Mprops){
+export  default function MessageBlock({message,sender}:Mprops){
     return (
       <div className="h-fit w-fit space-y-2 py-4">
         <div className="flex space-x-2  items-center  " >
           <AvatarComp  />
-          <h1 className="font-bold ">Sender</h1>
+          <h1 className="font-bold ">{sender}</h1>
         </div>
 
         <div className="bg-orange-500 p-2 px-4 rounded-xl w-full  text-white">
