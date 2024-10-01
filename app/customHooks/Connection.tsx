@@ -23,6 +23,18 @@ export function useWebSocketServer(url: string) {
       const receivedData = JSON.parse(event.data);
       console.log(receivedData);
 
+      if (receivedData.msg === "connected"){
+        //allow messages
+      }
+
+      if(receivedData.msg === "disconnected message "){
+        //disconnection frontend logic
+      }
+
+      if(receivedData.msg === "switch"){
+        //switch logic
+      }
+
       const chat = {
         status: true,
         message: receivedData.msg,

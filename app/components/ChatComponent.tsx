@@ -54,7 +54,7 @@ export function ChatComp() {
           .slice()
           .reverse()
           .map((chat, index) => {
-            if (chat.senderName === "system" || "System") {
+            if (chat.senderName === "system") {
               return <SystemMessage key={index} message={chat.message} />;
             }
             return chat.status ? (
