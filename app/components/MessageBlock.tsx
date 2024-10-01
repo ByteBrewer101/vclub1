@@ -10,7 +10,7 @@ interface Mprops {
 
 export  default function MessageBlock({message,sender}:Mprops){
     return (
-      <div className="h-fit w-fit space-y-2 py-4">
+      <div className="h-fit w-fit space-y-2 py-4  ">
         <div className="flex space-x-2  items-center  " >
           <AvatarComp  />
           <h1 className="font-bold ">{sender}</h1>

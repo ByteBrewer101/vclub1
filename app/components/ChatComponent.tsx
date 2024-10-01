@@ -6,6 +6,9 @@ import MessageBlockReciever from "./MessageBlockReciever";
 import {  useRecoilValue, useSetRecoilState } from "recoil";
 import { chatArray} from "../SocketLogic/atoms";
 import {  useJoinMessage, useSendChat } from "../customHooks/Functionsws";
+import SystemMessage from "./SystemMessage";
+
+
 
 export function ChatComp() {
   const [currentChat, setCurrentChat] = useState("");
@@ -51,8 +54,15 @@ export function ChatComp() {
           .slice()
           .reverse()
           .map((chat, index) => {
+            if (chat.senderName === "system" || "System") {
+              return <SystemMessage key={index} message={chat.message} />;
+            }
             return chat.status ? (
-              <MessageBlock key={index} sender={chat.senderName} message={chat.message} />
+              <MessageBlock
+                key={index}
+                sender={chat.senderName}
+                message={chat.message}
+              />
             ) : (
               <MessageBlockReciever key={index} message={chat.message} />
             );
@@ -69,7 +79,13 @@ export function ChatComp() {
             if (e.key === "Enter") sendHandler();
           }}
         />
-        <Button onClick={()=>{joinNewRoom()}}>Join</Button>
+        <Button
+          onClick={() => {
+            joinNewRoom();
+          }}
+        >
+          Join
+        </Button>
         <Button onClick={sendHandler}>Send</Button>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { chatArray, ConnStatus, socketAtom } from "../SocketLogic/atoms";
 export function useWebSocketServer(url: string) {
   const setSocket = useSetRecoilState(socketAtom);
   const setConnectionStatus = useSetRecoilState(ConnStatus);
-  const  setCurrentChatArray = useSetRecoilState(chatArray);
+  const setCurrentChatArray = useSetRecoilState(chatArray);
 
   useEffect(() => {
     const socket = new WebSocket(url);

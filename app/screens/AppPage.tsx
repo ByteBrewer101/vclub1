@@ -2,9 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import CardComp from "../components/CardComp";
+import { useRouter } from "next/navigation";
 
 export default function AppPage(){
-
+const router = useRouter()
+ 
    
 
     return( 
@@ -18,7 +20,7 @@ export default function AppPage(){
           Connect with others easily and efficiently with our platform. Click
           the button below to get started.
         </h5>
-        <Button className=" bg-orange-500 text-white hover:text-black shadow-xl shadow-orange-500/50">Chat Now</Button>
+        <Button  onClick={()=>{router.push("/pages/chatpage")}} className=" bg-orange-500 text-white hover:text-black shadow-xl shadow-orange-500/50">Chat Now</Button>
 
         <div className="flex items-center space-x-2 ">
           <button className="underline font-bold">Disclamer</button>

@@ -8,7 +8,7 @@ interface Mprops {
 
 export default function MessageBlockReciever({ message }: Mprops) {
   return (
-    <div className="w-full  flex justify-end" >
+    <div className="w-full  flex justify-end " >
       <div className="w-fit p-4 space-y-2 py-4">
         <div className="flex justify-end items-center space-x-2">
           <h1 className="font-bold text-white">You</h1>
