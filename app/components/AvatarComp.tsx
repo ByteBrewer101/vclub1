@@ -12,7 +12,7 @@ export default function AvatarComp() {
         src={session?.user?.image || "https://github.com/shadcn.png"}
         
       />
-      <AvatarFallback>CN</AvatarFallback>
+      <AvatarFallback>A</AvatarFallback>
     </Avatar>
   );
 }
