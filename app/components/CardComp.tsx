@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 interface cardInterface {
     title : string,
     content:string
+    
 }
 
 export default function CardComp ({title , content}:cardInterface){

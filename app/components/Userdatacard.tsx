@@ -18,6 +18,7 @@ export function UserData() {
           <div className="flex flex-col w-full">
             <h1>Name Lastname</h1>
             <h1>position</h1>
+            <h1>joined </h1>
           </div>
         </div>
       </div>

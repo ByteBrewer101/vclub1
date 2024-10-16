@@ -36,7 +36,7 @@ export function ChatComp() {
       const chat = {
         status: false,
         message: currentChat,
-        senderName: "You",
+        senderName: "You", 
       
       };
       chatarrayglobal((prev) => [...prev, chat]);
