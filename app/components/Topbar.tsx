@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button"
 
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn,  signOut,  useSession } from "next-auth/react";
 
 import AvatarComp from "./AvatarComp";
 
 
 export default function TopBar(){
-
-    const {data:session , status} = useSession()
+    
+    const { status} = useSession()
     
 
 
@@ -23,13 +23,17 @@ export default function TopBar(){
 
           <div className="flex space-x-4 items-center justify-center">
             <Button
-              variant="outline"
+              
               className="border-black dark:border-zinc-100"
               onClick={() => {
                 signIn();
               }}
             >
               Signin
+            </Button>
+
+            <Button onClick={()=>{signOut()}} >
+              Signout
             </Button>
 
             {status === "authenticated" ? <AvatarComp /> : null}
