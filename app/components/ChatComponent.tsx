@@ -3,17 +3,15 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import MessageBlock from "./MessageBlock";
 import MessageBlockReciever from "./MessageBlockReciever";
-import {  useRecoilValue, useSetRecoilState } from "recoil";
-import { chatArray} from "../SocketLogic/atoms";
-import {  useJoinMessage, useSendChat } from "../customHooks/Functionsws";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { chatArray } from "../SocketLogic/atoms";
+import { useJoinMessage, useSendChat } from "../customHooks/Functionsws";
 import SystemMessage from "./SystemMessage";
-
-
 
 export function ChatComp() {
   const [currentChat, setCurrentChat] = useState("");
-  const sendMessageChat = useSendChat()
-  const joinNewRoom = useJoinMessage()
+  const sendMessageChat = useSendChat();
+  const joinNewRoom = useJoinMessage();
 
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
@@ -23,9 +21,8 @@ export function ChatComp() {
     }
   };
 
-  const chatarrayglobal = useSetRecoilState(chatArray)
-  const chatArrayValue = useRecoilValue(chatArray)
-
+  const chatarrayglobal = useSetRecoilState(chatArray);
+  const chatArrayValue = useRecoilValue(chatArray);
 
   useEffect(() => {
     scrollToBottom();
@@ -36,13 +33,11 @@ export function ChatComp() {
       const chat = {
         status: false,
         message: currentChat,
-        senderName: "You", 
-      
+        senderName: "You",
       };
       chatarrayglobal((prev) => [...prev, chat]);
       setCurrentChat("");
-      sendMessageChat(chat.message)
-      
+      sendMessageChat(chat.message);
     }
   };
 
@@ -80,13 +75,21 @@ export function ChatComp() {
           }}
         />
         <Button
+        variant="outline"
+          className="bg-orange-800 hover:bg-orange-500"
+          onClick={sendHandler}
+        >
+          Send
+        </Button>
+        <Button
+        
           onClick={() => {
             joinNewRoom();
           }}
+         
         >
-          Join
+          Change Partner
         </Button>
-        <Button onClick={sendHandler}>Send</Button>
       </div>
     </div>
   );

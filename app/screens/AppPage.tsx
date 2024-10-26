@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import CardComp from "../components/CardComp";
@@ -6,39 +6,42 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 
-export default function AppPage(){
-const router = useRouter()
-const {status} = useSession()
-const handleChatNow = ()=>{
-  if(status === "authenticated"){
-    router.push("/pages/chatpage");
-  }
-  else{
-    toast.info("Sign in to continue")
-  }
-}
- 
-   
+export default function AppPage() {
+  const router = useRouter();
+  const { status } = useSession();
 
-    return( 
-    <div className="relative min-h-screen w-full flex justify-center items-center">
-      <div className="absolute inset-0 -z-5 bg-graph-paper " />
-      <div className="flex flex-col items-center justify-center h-full  inset-0 z-10 h-1/2 space-y-10 relative ">
-        <h1 className=" text-3xl md:text-7xl font-bold">
+  const handleChatNow = () => {
+    if (status === "authenticated") {
+      router.push("/pages/chatpage");
+    } else {
+      toast.info("Sign in to continue");
+    }
+  };
+
+  return (
+    <div className=" min-h-screen flex justify-center items-center">
+      
+      <div className="flex flex-col items-center justify-center space-y-8 h-full w-full px-4 sm:px-8 sm:mt-20 mt-40">
+        <h1 className="text-3xl md:text-7xl font-bold text-center">
           Start Connecting Now
         </h1>
-        <h5 className="text-md  md:text-xl font-semibold text-center max-w-lg px-4">
+        <h5 className="text-center  z-50 text-md md:text-xl font-semibold max-w-lg">
           Connect with others easily and efficiently with our platform. Click
           the button below to get started.
         </h5>
-        <Button  onClick={handleChatNow} className=" bg-orange-500 text-white hover:text-black shadow-xl shadow-orange-500/50">Chat Now</Button>
+        <Button
+          onClick={handleChatNow}
+          className="bg-orange-500  text-white hover:text-black shadow-lg shadow-orange-500/50 "
+        >
+          Chat Now
+        </Button>
 
-        <div className="flex items-center space-x-2 ">
-          <button className="underline font-bold">Disclamer</button>
-          <button className="underline font-bold ">Terms of service</button>
+        <div className="flex items-center space-x-4">
+          <button className="underline font-bold">Disclaimer</button>
+          <button className="underline font-bold">Terms of Service</button>
         </div>
 
-        <div className="flex  justify-center items-center space-x-10 md:overflow-visible overflow-x-auto">
+        <div className="grid gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
           <CardComp
             title="Card One"
             content="This is the content of the first card sample."
@@ -53,7 +56,6 @@ const handleChatNow = ()=>{
           />
         </div>
       </div>
-  
     </div>
   );
 }

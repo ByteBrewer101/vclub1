@@ -4,7 +4,7 @@
 
 
 body {
-  background: radial-gradient(125% 125% at 50% 10%, #0a0a0a 40%, rgb(224, 88, 39) 100%);
+  background: radial-gradient(125% 125% at 50% 10%, #0a0a0a 40%, rgb(115, 46, 2) 100%);
   margin: 0;
   /* Optional: remove default margin for a full-viewport background */
   height: 100vh;

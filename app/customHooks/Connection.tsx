@@ -1,20 +1,27 @@
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
-import { chatArray, ConnStatus, socketAtom } from "../SocketLogic/atoms";
+import {  useSetRecoilState } from "recoil";
+import {
+  chatArray,
+  ConnStatus,
+  LookingForMatch,
+  socketAtom,
+} from "../SocketLogic/atoms";
 import { useSession } from "next-auth/react";
-import jwt from "jsonwebtoken"; // Import jwt
+
 
 export function useWebSocketServer(url: string) {
   const setSocket = useSetRecoilState(socketAtom);
   const setConnectionStatus = useSetRecoilState(ConnStatus);
   const setCurrentChatArray = useSetRecoilState(chatArray);
   const { data: session } = useSession();
+  const setLookingForMatch = useSetRecoilState(LookingForMatch);
 
-  const token = session?.accessToken
-// console.log(token);
+
+  const token = session?.accessToken;
+  // console.log(token);
 
   // Construct the new URL with the signed token
-  const newUrl =  `${url}?token=${token}` 
+  const newUrl = `${url}?token=${token}`;
 
   useEffect(() => {
     const socket = new WebSocket(newUrl);
@@ -27,29 +34,27 @@ export function useWebSocketServer(url: string) {
       setConnectionStatus(true); // Set connection status to true when connected
     };
 
-    socket.onmessage = (event) => {
+    socket.onmessage = async (event) => {
       console.log("Message received:", event.data);
-      const receivedData = JSON.parse(event.data);
+      const receivedData = await JSON.parse(event.data);
       console.log(receivedData);
 
-      // Handle various messages
-      if (receivedData.msg === "connected") {
-        // Allow messages
-      } else if (receivedData.msg === "disconnected message") {
-        // Disconnection frontend logic
-      } else if (receivedData.msg === "switch") {
-        // Switch logic
+      if(receivedData.sender === "system" && receivedData.msg !== "connected"){
+        setLookingForMatch("false")
+        setCurrentChatArray([])
+
       }
-
-      const chat = {
-        status: true,
-        message: receivedData.msg,
-        senderName: receivedData.sender,
-      };
-
-      // Update the chat array with the received data
-      setCurrentChatArray((chats) => [...chats, chat]);
-      console.log("Updated chat array:", receivedData);
+   else{
+      setLookingForMatch("true")
+        const chat = {
+          status: true,
+          message: receivedData.msg,
+          senderName: receivedData.sender,
+        };
+        setCurrentChatArray((chats) => [...chats, chat]);
+        console.log("Updated chat array:", receivedData);
+      }
+ 
     };
 
     socket.onerror = (error) => {

@@ -1,3 +1,5 @@
+
+"use client"
 import { atom } from "recoil";
 interface Message {
   status: boolean;
@@ -19,3 +21,9 @@ export const ConnStatus = atom({
   key: "ConnStatus",
   default: false,
 });
+
+
+export const LookingForMatch = atom({
+  key:"LookingForMatch",
+  default : "first",
+})

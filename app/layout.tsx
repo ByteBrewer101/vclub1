@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import TopBar from "./components/Topbar";
+
 import { ThemeProviders } from "./theme-providers";
 import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/sonner";
@@ -40,7 +40,7 @@ export default function RootLayout({
         <RecoidContextProvider>
           <Providers>
             <ThemeProviders>
-              <TopBar />
+           
               {children}
               <Toaster />
             </ThemeProviders>
