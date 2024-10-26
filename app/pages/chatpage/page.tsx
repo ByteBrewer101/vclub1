@@ -1,13 +1,19 @@
 "use client";
 import { ChatComp } from "@/app/components/ChatComponent";
 import { UserData } from "@/app/components/Userdatacard";
+import { useWebSocketServer } from "@/app/customHooks/Connection";
+
 import { signIn, useSession } from "next-auth/react";
 
 import { useEffect } from "react";
 
 export default function ChatPage() {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
 
+  const url = process.env.NEXT_PUBLIC_API_URL || "ws://localhost:3000";
+
+
+  useWebSocketServer(url);
 
   useEffect(() => {
     // If the user is not authenticated, directly trigger signIn without rendering the page.
@@ -16,9 +22,8 @@ export default function ChatPage() {
     }
   }, [status]);
 
-
   if (status === "loading" || status === "unauthenticated") {
-    return null; 
+    return null;
   }
 
   // Render the page content only when the user is authenticated.

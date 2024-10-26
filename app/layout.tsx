@@ -4,6 +4,7 @@ import "./globals.css";
 import TopBar from "./components/Topbar";
 import { ThemeProviders } from "./theme-providers";
 import { Providers } from "./providers";
+import { Toaster } from "@/components/ui/sonner";
 
 import RecoidContextProvider from "./recoilrootprovider";
 
@@ -41,6 +42,7 @@ export default function RootLayout({
             <ThemeProviders>
               <TopBar />
               {children}
+              <Toaster />
             </ThemeProviders>
           </Providers>
         </RecoidContextProvider>

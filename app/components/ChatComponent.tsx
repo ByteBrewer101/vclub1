@@ -48,7 +48,7 @@ export function ChatComp() {
 
   return (
     <div className="flex flex-col h-full bg-white bg-opacity-5 shadow-2xl  backdrop-blur-sm p-4 rounded-xl w-full xl:w-2/3 md:w-4/5">
-      <div className="h-full flex-grow flex flex-col-reverse overflow-y-auto p-2 mb-2 space-y-2 no-scrollbar">
+      <div className="h-full flex-grow flex flex-col-reverse overflow-y-scroll p-2 mb-2 space-y-2 no-scrollbar">
         <div ref={bottomRef} />
         {chatArrayValue
           .slice()

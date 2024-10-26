@@ -1,14 +1,23 @@
 import { useEffect } from "react";
-import {  useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { chatArray, ConnStatus, socketAtom } from "../SocketLogic/atoms";
+import { useSession } from "next-auth/react";
+import jwt from "jsonwebtoken"; // Import jwt
 
 export function useWebSocketServer(url: string) {
   const setSocket = useSetRecoilState(socketAtom);
   const setConnectionStatus = useSetRecoilState(ConnStatus);
   const setCurrentChatArray = useSetRecoilState(chatArray);
+  const { data: session } = useSession();
+
+  const token = session?.accessToken
+// console.log(token);
+
+  // Construct the new URL with the signed token
+  const newUrl =  `${url}?token=${token}` 
 
   useEffect(() => {
-    const socket = new WebSocket(url);
+    const socket = new WebSocket(newUrl);
 
     // Store socket instance in Recoil state
     setSocket(socket);
@@ -23,16 +32,13 @@ export function useWebSocketServer(url: string) {
       const receivedData = JSON.parse(event.data);
       console.log(receivedData);
 
-      if (receivedData.msg === "connected"){
-        //allow messages
-      }
-
-      if(receivedData.msg === "disconnected message "){
-        //disconnection frontend logic
-      }
-
-      if(receivedData.msg === "switch"){
-        //switch logic
+      // Handle various messages
+      if (receivedData.msg === "connected") {
+        // Allow messages
+      } else if (receivedData.msg === "disconnected message") {
+        // Disconnection frontend logic
+      } else if (receivedData.msg === "switch") {
+        // Switch logic
       }
 
       const chat = {
@@ -43,12 +49,17 @@ export function useWebSocketServer(url: string) {
 
       // Update the chat array with the received data
       setCurrentChatArray((chats) => [...chats, chat]);
-
       console.log("Updated chat array:", receivedData);
     };
 
-    socket.onclose = () => {
-      console.log("WebSocket disconnected");
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+      // Optionally, you can set the connection status to false here
+      setConnectionStatus(false);
+    };
+
+    socket.onclose = (event) => {
+      console.log("WebSocket disconnected", event.reason);
       setConnectionStatus(false); // Set connection status to false when disconnected
     };
 
@@ -58,7 +69,7 @@ export function useWebSocketServer(url: string) {
       console.log("WebSocket connection closed");
       setConnectionStatus(false);
     };
-  }, [setSocket, url, setConnectionStatus, setCurrentChatArray]);
+  }, [setSocket, newUrl, setConnectionStatus, setCurrentChatArray]);
 
   return null; // This hook does not return any JSX
 }
