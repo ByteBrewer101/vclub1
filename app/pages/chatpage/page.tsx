@@ -23,7 +23,7 @@ import { toast } from "sonner";
 export default function ChatPage() {
   const { status } = useSession();
   const joinNewRoom = useJoinMessage();
-  const url = process.env.NEXT_PUBLIC_API_URL || "ws://localhost:3000";
+  const url = process.env.NEXT_PUBLIC_API_URL ||""
   const value = useRecoilValue(LookingForMatch);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
