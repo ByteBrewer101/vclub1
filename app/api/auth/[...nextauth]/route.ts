@@ -35,7 +35,7 @@ const handler = NextAuth({
     async session({ session, token }: any) {
       // Ensure the token has the jwt property set
 
-      session.accessToken = token.urlfile as string; // Set the JWT token to session.accessToken
+      session.accessToken = token.urlfile ; // Set the JWT token to session.accessToken
 
       console.log(session.accessToken);
       return session;
