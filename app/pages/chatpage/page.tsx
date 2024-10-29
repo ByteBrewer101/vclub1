@@ -47,7 +47,7 @@ export default function ChatPage() {
   return (
     <div className="flex flex-col h-screen">
       <TopBar />
-      <div className="flex flex-col md:flex-row justify-center items-start space-x-4 flex-grow p-4 py-10 md:py-20">
+      <div className="flex flex-col md:flex-row justify-center overflow-y-scroll items-start space-x-4 flex-grow p-4 py-10 md:py-20">
         {isDialogOpen && (
           <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <AlertDialogContent className="max-w-sm w-full mx-auto">
