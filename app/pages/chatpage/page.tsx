@@ -74,6 +74,7 @@ export default function ChatPage() {
                       joinNewRoom();
                       setIsDialogOpen(false);
                     }}
+                    disabled={!conStatus}
                   >
                     {!conStatus ? "Connecting..." : "Join Chat"}
                   </Button>
