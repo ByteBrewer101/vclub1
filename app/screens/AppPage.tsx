@@ -23,14 +23,13 @@ export default function AppPage() {
       toast.info("Sign in to continue");
     }
     else if(!conStatus){
-       toast.error("Connecting to server");
+       toast.error("Wait while we connect you to server");
 
     }
   };
 
   return (
     <div className=" min-h-screen flex justify-center items-center">
-      
       <div className="flex flex-col items-center justify-center space-y-8 h-full w-full px-4 sm:px-8 sm:mt-20 mt-40">
         <h1 className="text-3xl md:text-7xl font-bold text-center">
           Start Connecting Now
@@ -41,9 +40,14 @@ export default function AppPage() {
         </h5>
         <Button
           onClick={handleChatNow}
-          className="bg-orange-500  text-white hover:text-black shadow-lg shadow-orange-500/50 "
+          className={
+            conStatus
+              ? "bg-orange-500 text-white hover:text-black shadow-lg shadow-orange-500/50"
+              : "bg-gray-500 text-white hover:text-black shadow-lg shadow-gray-500/50"
+          }
+          disabled={!conStatus}
         >
-          Chat Now
+         {conStatus?"Chat Now":"Connecting" } 
         </Button>
 
         <div className="flex items-center space-x-4">
