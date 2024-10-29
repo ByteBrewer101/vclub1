@@ -74,7 +74,7 @@ export function useWebSocketServer(url: string) {
       console.log("WebSocket connection closed");
       setConnectionStatus(false);
     };
-  }, [setSocket, newUrl, setConnectionStatus, setCurrentChatArray]);
+  }, [setSocket, newUrl, setConnectionStatus, setCurrentChatArray,setLookingForMatch]);
 
   return null; // This hook does not return any JSX
 }
