@@ -69,21 +69,13 @@ export default function ChatPage() {
                 </AlertDialogDescription>
                 {value === "first" && (
                   <Button
-                  variant={!conStatus?"outline":null}
+                    variant={!conStatus ? "outline" : "default"}
                     onClick={() => {
                       joinNewRoom();
                       setIsDialogOpen(false);
                     }}
-                    className="flex space-x-4"
                   >
-                    {!conStatus ? (
-                      <svg
-                        className="animate-spin h-5 w-5 mr-3 ..."
-                        viewBox="0 0 24 24"
-                      ></svg>
-                    ) : null}
-
-                    {!conStatus ? "Connecting" : "Join Chat"}
+                    {!conStatus ? "Connecting..." : "Join Chat"}
                   </Button>
                 )}
                 <div></div>
