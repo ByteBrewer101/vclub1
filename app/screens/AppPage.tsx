@@ -5,16 +5,26 @@ import CardComp from "../components/CardComp";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
+import { ConnStatus } from "../SocketLogic/atoms";
+import { useRecoilValue } from "recoil";
 
 export default function AppPage() {
   const router = useRouter();
   const { status } = useSession();
+  const conStatus = useRecoilValue(ConnStatus)
+
+
+
 
   const handleChatNow = () => {
-    if (status === "authenticated") {
+    if (status === "authenticated" && conStatus) {
       router.push("/pages/chatpage");
-    } else {
+    } else if(status === "unauthenticated") {
       toast.info("Sign in to continue");
+    }
+    else if(!conStatus){
+       toast.error("Connecting to server");
+
     }
   };
 

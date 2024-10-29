@@ -2,7 +2,6 @@
 import { ChatComp } from "@/app/components/ChatComponent";
 import TopBar from "@/app/components/Topbar";
 
-import { useWebSocketServer } from "@/app/customHooks/Connection";
 import { useJoinMessage } from "@/app/customHooks/Functionsws";
 import { LookingForMatch } from "@/app/SocketLogic/atoms";
 import {
@@ -23,11 +22,11 @@ import { toast } from "sonner";
 export default function ChatPage() {
   const { status } = useSession();
   const joinNewRoom = useJoinMessage();
-  const url = process.env.NEXT_PUBLIC_API_URL ||""
+ 
   const value = useRecoilValue(LookingForMatch);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  useWebSocketServer(url);
+ 
 
   useEffect(() => {
     // If the user is not authenticated, directly trigger signIn without rendering the page.
