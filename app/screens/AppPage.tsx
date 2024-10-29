@@ -5,26 +5,16 @@ import CardComp from "../components/CardComp";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
-import { ConnStatus } from "../SocketLogic/atoms";
-import { useRecoilValue } from "recoil";
 
 export default function AppPage() {
   const router = useRouter();
   const { status } = useSession();
-  const conStatus = useRecoilValue(ConnStatus)
-
-
-
 
   const handleChatNow = () => {
-    if (status === "authenticated" && conStatus) {
+    if (status === "authenticated") {
       router.push("/pages/chatpage");
-    } else if(status === "unauthenticated") {
+    } else {
       toast.info("Sign in to continue");
-    }
-    else if(!conStatus){
-       toast.error("Wait while we connect you to server");
-
     }
   };
 
@@ -40,14 +30,9 @@ export default function AppPage() {
         </h5>
         <Button
           onClick={handleChatNow}
-          className={
-            conStatus
-              ? "bg-orange-500 text-white hover:text-black shadow-lg shadow-orange-500/50"
-              : "bg-gray-500 text-white hover:text-black shadow-lg shadow-gray-500/50"
-          }
-          disabled={!conStatus}
+          className="bg-orange-500 text-white hover:text-black shadow-lg shadow-orange-500/50"
         >
-         {conStatus?"Chat Now":"Connecting" } 
+          Chat Now
         </Button>
 
         <div className="flex items-center space-x-4">
