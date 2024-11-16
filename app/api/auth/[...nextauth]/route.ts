@@ -1,6 +1,9 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import jwt from "jsonwebtoken"; // Ensure this is installed
+import LinkedInProvider from "next-auth/providers/linkedin";
+
+
 
 const handler = NextAuth({
   providers: [
@@ -11,6 +14,15 @@ const handler = NextAuth({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       clientSecret: process.env.GITHUB_SECRET,
+    }),
+
+    LinkedInProvider({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      clientId: process.env.LINKEDIN_CLIENT_ID,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
@@ -35,7 +47,7 @@ const handler = NextAuth({
     async session({ session, token }: any) {
       // Ensure the token has the jwt property set
 
-      session.accessToken = token.urlfile ; // Set the JWT token to session.accessToken
+      session.accessToken = token.urlfile; // Set the JWT token to session.accessToken
 
       console.log(session.accessToken);
       return session;
